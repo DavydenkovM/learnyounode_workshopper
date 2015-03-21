@@ -6,19 +6,14 @@ function FileListFilter(extname){
 }
 
 FileListFilter.prototype.perform = function(err, list) {
-  console.log(this);
-
   list.forEach(function(entry) {
-    console.log(this.extname);
-    console.log(path.extname(entry));
-    if (path.extname(entry) == (this.extname)) {
+    if (path.extname(entry) == ('.' + this.extname)) {
       console.log(entry);
     }
   }, this);
 };
 
-extension = process.argv[3];
-fileListFilter = new FileListFilter(extension);
+fileListFilter = new FileListFilter(process.argv[3]);
 
 fs.readdir(process.argv[2], fileListFilter.perform.bind(fileListFilter));
 
