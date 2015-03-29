@@ -1,19 +1,13 @@
-var fs = require('fs');
-var path = require('path');
+var filterFn = require('./solution_filter.js')
+var dir = process.argv[2]
+var filterStr = process.argv[3]
 
-function FileListFilter(extname){
-  this.extname = extname;
-}
+filterFn(dir, filterStr, function (err, list) {
+  if (err)
+    return console.error('There was an error:', err)
 
-FileListFilter.prototype.perform = function(err, list) {
-  list.forEach(function(entry) {
-    if (path.extname(entry) == ('.' + this.extname)) {
-      console.log(entry);
-    }
-  }, this);
-};
-
-fileListFilter = new FileListFilter(process.argv[3]);
-
-fs.readdir(process.argv[2], fileListFilter.perform.bind(fileListFilter));
+  list.forEach(function (file) {
+    console.log(file)
+  })
+})
 
