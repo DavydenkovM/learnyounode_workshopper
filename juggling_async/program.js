@@ -18,7 +18,16 @@ function OutputPool () {
   }.bind(this);
 
   this.printResults = function () {
-    this.buffer.forEach(function (entry) {
+    sortedBuffer = this.buffer.sort(function (a,b) {
+      if (a.priority > b.priority)
+        return 1
+      if (a.priority < b.priority)
+        return -1
+      if (a.priority === b.priority)
+        return 0     
+    })
+
+    sortedBuffer.forEach(function (entry) {
       console.log(entry.data);
     });
   };
